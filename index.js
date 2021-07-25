@@ -17,7 +17,7 @@ app.get('/rcp/:channel', async (req, res) => {
         clips = JSON.parse(cacheData)
     } else {
         const data = (await utils.helix(`clips?broadcaster_id=${user[0].id}&first=100`)).body.data
-        if (!data.length) return res.status(404).send('This channel has no clips')
+        if (data.length < 5) return res.status(404).send('The channel needs to have at least 5 clips')
 
         clips = data.map(clip => clip.thumbnail_url.replace(/-preview.*/, '.mp4'))
         await utils.redis.set(`rc:clips:${user[0].id}`, JSON.stringify(clips), "EX", 86400)
