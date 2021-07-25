@@ -31,7 +31,7 @@
     random()
     function random() {
         if (!shuffledClips.length) shuffledClips = shuffle(clips)
-        const source = shuffledClips.pop()
+        const source = `https://production.assets.clips.twitchcdn.net/${shuffledClips.pop()}`
 
         setTimeout(() => {
             play(source);
