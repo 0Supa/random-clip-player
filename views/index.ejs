@@ -30,13 +30,15 @@
 
     random()
     function random() {
-        let source;
+        let source = clips[Math.floor(Math.random() * clips.length)]
         while (source !== lastClip) {
             source = clips[Math.floor(Math.random() * clips.length)]
         }
 
         lastClip = source
-        play(source);
+        setTimeout(() => {
+            play(source);
+        }, 300);
     }
 </script>
 
