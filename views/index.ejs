@@ -30,13 +30,8 @@
 
     random()
     function random() {
-<<<<<<< HEAD
-        if (!shuffledClips.length) shuffledClips = shuffle(clips)
-        const source = `https://production.assets.clips.twitchcdn.net/${shuffledClips.pop()}`
-=======
         const source = clips[Math.floor(Math.random() * clips.length)]
         if (lastClip === source) return random()
->>>>>>> parent of 0b30241 (Update index.ejs)
 
         lastClip = source
         setTimeout(() => {
