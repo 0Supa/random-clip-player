@@ -10,35 +10,34 @@
 </style>
 
 <body bgcolor="black">
+    <video id="clip" width="100%" height="100%" autoplay>
+        <source type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-<video id="clip" width="100%" height="100%" autoplay>
-  <source type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+    <script>
+        const clips = <% - JSON.stringify(clips) %>;
+        let lastClip;
 
-<script>
-    const clips = <%- JSON.stringify(clips) %>;
-    let lastClip;
+        const clip = document.getElementById('clip');
+        clip.addEventListener('ended', random, false);
 
-    const clip = document.getElementById('clip');
-    clip.addEventListener('ended', random, false);
+        function play(source) {
+            clip.setAttribute('src', source);
+            clip.volume = 1
+        }
 
-    function play(source) {
-    	clip.setAttribute('src', source);
-    	clip.volume = 1		
-    }
+        random()
+        function random() {
+            const source = clips[Math.floor(Math.random() * clips.length)]
+            if (lastClip === source) return random()
 
-    random()
-    function random() {
-        const source = clips[Math.floor(Math.random() * clips.length)]
-        if (lastClip === source) return random()
-
-        lastClip = source
-        setTimeout(() => {
-            play(source);
-        }, 300);
-    }
-</script>
-
+            lastClip = source
+            setTimeout(() => {
+                play(source);
+            }, 300);
+        }
+    </script>
 </body>
+
 </html>
