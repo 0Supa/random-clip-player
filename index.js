@@ -23,6 +23,7 @@ app.get('/rcp/:channel', async (req, res) => {
         await utils.redis.set(`rc:clips:${user[0].id}`, JSON.stringify(clips), "EX", 86400)
     }
 
+    console.log(clips)
     res.render('index', { clips })
 })
 
