@@ -12,7 +12,7 @@ app.get('/rcp/:channel', async (req, res) => {
     if (!user.length) return res.status(400).send('Invalid channel name')
 
     let clips
-    const cacheData = await utils.redis.get(`ob:channel:clips:${user[0].id}`)
+    const cacheData = await utils.redis.get(`rc:clips:${user[0].id}`)
     if (cacheData) {
         clips = JSON.parse(cacheData)
     } else {
@@ -23,7 +23,6 @@ app.get('/rcp/:channel', async (req, res) => {
         await utils.redis.set(`rc:clips:${user[0].id}`, JSON.stringify(clips), "EX", 86400)
     }
 
-    console.log(clips)
     res.render('index', { clips })
 })
 
