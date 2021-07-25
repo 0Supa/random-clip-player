@@ -18,7 +18,7 @@
 
 <script>
     const clips = <%- JSON.stringify(clips) %>;
-    let lastClip;
+    let shuffledClips = shuffle(clips)
 
     const clip = document.getElementById('clip');
     clip.addEventListener('ended', random, false);
@@ -30,13 +30,23 @@
 
     random()
     function random() {
-        const source = clips[Math.floor(Math.random() * clips.length)]
-        if (lastClip === source) return random()
+        if (!shuffledClips.length) shuffledClips = shuffle(clips)
+        const source = shuffledClips.pop()
 
-        lastClip = source
         setTimeout(() => {
             play(source);
         }, 300);
+    }
+
+    function shuffle(array) {
+        let res = [];
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            res[i] = array[j];
+            res[j] = temp;
+        }
+        return res;
     }
 </script>
 
