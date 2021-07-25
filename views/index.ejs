@@ -18,7 +18,7 @@
 
 <script>
     const clips = <%- JSON.stringify(clips) %>;
-    let shuffledClips = shuffle(clips)
+    let lastClip;
 
     const clip = document.getElementById('clip');
     clip.addEventListener('ended', random, false);
@@ -30,23 +30,18 @@
 
     random()
     function random() {
+<<<<<<< HEAD
         if (!shuffledClips.length) shuffledClips = shuffle(clips)
         const source = `https://production.assets.clips.twitchcdn.net/${shuffledClips.pop()}`
+=======
+        const source = clips[Math.floor(Math.random() * clips.length)]
+        if (lastClip === source) return random()
+>>>>>>> parent of 0b30241 (Update index.ejs)
 
+        lastClip = source
         setTimeout(() => {
             play(source);
         }, 300);
-    }
-
-    function shuffle(array) {
-        let res = [];
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            res[i] = array[j];
-            res[j] = temp;
-        }
-        return res;
     }
 </script>
 
