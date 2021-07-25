@@ -18,6 +18,7 @@
 
 <script>
     const clips = <%- JSON.stringify(clips) %>;
+    let lastClip;
 
     const clip = document.getElementById('clip');
     clip.addEventListener('ended', random, false);
@@ -29,7 +30,13 @@
 
     random()
     function random() {
-        play(clips[Math.floor(Math.random() * clips.length)]);            
+        let source;
+        while (source !== lastClip) {
+            source = clips[Math.floor(Math.random() * clips.length)]
+        }
+
+        lastClip = source
+        play(source);
     }
 </script>
 
