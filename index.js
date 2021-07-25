@@ -4,7 +4,7 @@ const utils = require('./utils.js')
 
 app.set('view engine', 'ejs');
 
-app.get('/:channel', async (req, res) => {
+app.get('/rcp/:channel', async (req, res) => {
     const channel = req.params.channel
     if (!channel) return res.status(400).send('You need to specify the channel name')
 
