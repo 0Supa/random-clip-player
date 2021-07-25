@@ -30,10 +30,8 @@
 
     random()
     function random() {
-        let source = clips[Math.floor(Math.random() * clips.length)]
-        while (source !== lastClip) {
-            source = clips[Math.floor(Math.random() * clips.length)]
-        }
+        const source = clips[Math.floor(Math.random() * clips.length)]
+        if (lastClip === source) return random()
 
         lastClip = source
         setTimeout(() => {
