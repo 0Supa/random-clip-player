@@ -32,7 +32,13 @@ async function getClips(channelID, reqs) {
 
     while (i < reqs) {
         const { data, pagination } = (await utils.helix(`clips?broadcaster_id=${channelID}&first=100${cursor ? `&after=${cursor}` : ''}`)).body
-        clips = clips.concat(data.map(clip => clip.thumbnail_url.replace(/-preview.*/, '.mp4')))
+
+        const l = data.length;
+        for (let i = 0; i < l; i++) {
+            const clip = data[i]
+            clips.push({ by: clip.creator_name, id: /twitch\.tv\/(.*)-preview-480x272.jpg/.exec(clip.thumbnail_url)[1] })
+        }
+
         cursor = pagination.cursor
         if (!cursor) { break; }
         i++
