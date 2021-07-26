@@ -16,15 +16,29 @@ app.get('/rcp/:channel', async (req, res) => {
     if (cacheData) {
         clips = JSON.parse(cacheData)
     } else {
-        const data = (await utils.helix(`clips?broadcaster_id=${user[0].id}&first=100`)).body.data
-        if (data.length < 5) return res.status(404).send('The channel needs to have at least 5 clips')
+        clips = await getClips(user[0].id, 3)
+        if (clips.length < 5) return res.status(404).send('The channel needs to have at least 5 clips')
 
-        clips = data.map(clip => clip.thumbnail_url.replace(/-preview.*/, '.mp4'))
         await utils.redis.set(`rc:clips:${user[0].id}`, JSON.stringify(clips), "EX", 86400)
     }
 
     res.render('index', { clips })
 })
+
+async function getClips(channelID, reqs) {
+    let i = 0
+    let clips = []
+    let cursor
+
+    while (i < reqs) {
+        const { data, pagination } = (await utils.helix(`clips?broadcaster_id=${channelID}&first=100${cursor ? `&after=${cursor}` : ''}`)).body
+        clips = clips.concat(data.map(clip => clip.thumbnail_url.replace(/-preview.*/, '.mp4')))
+        cursor = pagination.cursor
+        if (!cursor) { break; }
+        i++
+    }
+    return clips;
+}
 
 app.listen(3840, (err) => {
     if (err) throw err
