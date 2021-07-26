@@ -7,6 +7,19 @@
         top: 0px;
         left: 0px;
     }
+
+    .content {
+        position: fixed;
+        bottom: 70px;
+        left: 7px;
+        color: #f1f1f1;
+    }
+
+    #by {
+        font-family: Arial;
+        font-size: 2.2em;
+        -webkit-text-stroke: 2px black;
+    }
 </style>
 
 <body bgcolor="black">
@@ -15,11 +28,17 @@
         Your browser does not support the video tag.
     </video>
 
+    <div class="content">
+        <h1 id="by"></h1>
+    </div>
+
     <script>
         const clips = <%- JSON.stringify(clips) %>;
         let lastClip;
 
         const clip = document.getElementById('clip');
+        const by = document.getElementById('by');
+
         clip.addEventListener('ended', random, false);
 
         function play(source) {
@@ -29,12 +48,14 @@
 
         random()
         function random() {
-            const source = clips[Math.floor(Math.random() * clips.length)]
-            if (lastClip === source) return random()
+            by.innerHTML = ''
+            const clip = clips[Math.floor(Math.random() * clips.length)]
+            if (lastClip === clip.id) return random()
 
-            lastClip = source
+            lastClip = clip.id
             setTimeout(() => {
-                play(source);
+                by.innerHTML = `Clipped by <span style="color: #9146ff">${clip.by}</span>`
+                play(`https://clips-media-assets2.twitch.tv/${clip.id}.mp4`);
             }, 300);
         }
     </script>
