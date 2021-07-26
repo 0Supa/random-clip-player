@@ -54,7 +54,7 @@
 
             lastClip = clip.id
             setTimeout(() => {
-                by.innerHTML = `Clipped by <span style="color: #9146ff">${clip.by}</span>`
+                by.innerHTML = `Clipped by <span style="color: #9146ff">${clip.by.length > 15 ? `${clip.by.substring(0, 15)}..` : clip.by}</span>`
                 play(`https://clips-media-assets2.twitch.tv/${clip.id}.mp4`);
             }, 300);
         }
