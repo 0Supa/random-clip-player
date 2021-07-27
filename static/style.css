@@ -1,0 +1,44 @@
+#clip {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.content {
+  display: none;
+  position: fixed;
+  bottom: 14vw;
+  color: #f1f1f1;
+  left: 0;
+}
+
+h1 {
+  font-size: 1.8vw;
+  color: white;
+  font-family: Verdana;
+}
+
+img {
+  width: 6vw;
+  height: auto;
+}
+
+#error {
+  font-size: 2vw;
+  color: red;
+}
+
+#by {
+  font-family: Arial;
+  font-size: 1.5vw;
+  -webkit-text-stroke: 0.08vw black;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0.2vw 0.2vw 0;
+  padding: 0.2vw;
+}
+
+#loading {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
