@@ -4,7 +4,7 @@ const utils = require('./utils.js')
 
 app.set('view engine', 'ejs');
 
-app.use('/rcp/v2', express.static(__dirname + '/static'))
+app.use('/rcp/overlay', express.static(__dirname + '/static'))
 
 app.get('/rcp/api/clips/:channel', async (req, res) => {
     const channel = req.params.channel
