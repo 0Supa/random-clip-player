@@ -2,7 +2,7 @@ const loading = document.getElementById("loading")
 const params = new URLSearchParams(window.location.search);
 const channel = params.get('channel')
 
-if (params.get('author') === '1') document.getElementById("author").style.display = "block";
+if (params.get('details') === '1') document.getElementById("details").style.display = "block";
 
 let clips = [];
 let shuffledClips = [];
