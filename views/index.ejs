@@ -24,6 +24,14 @@
         padding: 0.2vw;
     }
 
+    #warning {
+        position: fixed;
+        font-size: 2vw;
+        font-family: Arial;
+        color: red;
+        -webkit-text-stroke: 0.2vw black;
+    }
+
 </style>
 
 <body bgcolor="black">
@@ -32,11 +40,19 @@
         Your browser does not support the video tag.
     </video>
 
+    <div id="warning">
+        <h1>WARNING: This overlay version is deprecated, contact Supa for more assistance</h1>
+    </div>
+
     <div class="content">
         <h1 id="by"></h1>
     </div>
 
     <script>
+        setTimeout(() => {
+            document.getElementById("warning").style.display = "none";
+        }, 4000);
+
         const clips = <%- JSON.stringify(clips) %>;
         let lastClip;
 
