@@ -42,7 +42,7 @@ function random() {
         by.innerHTML = `Clipped by <span style="color: #9146ff">${clipData.by.length > 15 ? `${clipData.by.substring(0, 15)}..` : clipData.by || '(unknown)'}</span>`
         play(`https://clips-media-assets2.twitch.tv/${clipData.id}.mp4`);
     } else {
-        by.innerHTML = `<span style="color: #008c33">kata old clips archive</span>`
+        by.innerHTML = `<span style="color: #008c33">kata's old clips archive</span>`
         play(`${window.location.origin}/rcp/chimiclips/${clipData.id}`);
     }
 }
