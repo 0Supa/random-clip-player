@@ -1,10 +1,13 @@
 const express = require('express')
+const fs = require('fs')
 const app = express()
 const utils = require('./utils.js')
 
 app.set('view engine', 'ejs');
 
 app.use('/rcp/overlay', express.static(__dirname + '/static'))
+
+app.use('/rcp/chimiclips', express.static(__dirname + '/chimiClips'))
 
 app.get('/rcp/api/clips/:channel', async (req, res) => {
     const channel = req.params.channel
@@ -52,6 +55,15 @@ async function getClips(channelID, reqs) {
     let i = 0
     let clips = []
     let cursor
+
+    if (channelID === '227322800') {
+        const chimiClips = fs.readdirSync('./chimiClips').filter(file => file.endsWith('.mp4'));
+        const l = chimiClips.length;
+        for (let i = 0; i < l; i++) {
+            const clip = chimiClips[i]
+            clips.push({ kata: true, id: clip })
+        }
+    }
 
     while (i < reqs) {
         const { data, pagination } = (await utils.helix(`clips?broadcaster_id=${channelID}&first=100${cursor ? `&after=${cursor}` : ''}`)).body
