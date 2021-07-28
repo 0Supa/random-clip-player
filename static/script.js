@@ -35,7 +35,7 @@ function play(source) {
 
 function random() {
     by.innerHTML = ''
-    if (!shuffledClips.length) shuffledClips = shuffle(clips)
+    if (!shuffledClips.length) shuffledClips = Array.from(clips).sort(() => 0.5 - Math.random())
     const clipData = shuffledClips.pop()
 
     if (!clipData.kata) {
@@ -45,15 +45,4 @@ function random() {
         by.innerHTML = `<span style="color: #008c33">kata's old clips archive</span>`
         play(`${window.location.origin}/rcp/chimiclips/${clipData.id}`);
     }
-}
-
-function shuffle(array) {
-    let res = [];
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        res[i] = array[j];
-        res[j] = temp;
-    }
-    return res;
 }
