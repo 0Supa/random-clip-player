@@ -38,7 +38,7 @@ function random() {
     if (!shuffledClips.length) shuffledClips = shuffle(clips)
     const clipData = shuffledClips.pop()
 
-    by.innerHTML = `Clipped by <span style="color: #9146ff">${clipData.by.length > 15 ? `${clipData.by.substring(0, 15)}..` : clipData.by}</span>`
+    by.innerHTML = `Clipped by <span style="color: #9146ff">${clipData.by.length > 15 ? `${clipData.by.substring(0, 15)}..` : clipData.by || '(unknown)'}</span>`
     play(`https://clips-media-assets2.twitch.tv/${clipData.id}.mp4`);
 }
 
