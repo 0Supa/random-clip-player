@@ -6,6 +6,12 @@ if (params.get('details') === '1') document.getElementById("details").style.disp
 
 let clips = [];
 let shuffledClips = [];
+
+const clip = document.getElementById('clip');
+const by = document.getElementById('by');
+
+clip.addEventListener('ended', random, false);
+
 getClips()
 async function getClips() {
     if (!channel) return error('you need to specify the channel name')
@@ -15,13 +21,9 @@ async function getClips() {
     loading.style.display = "none";
     if (data.error) return error(data.error)
     clips = data
+    clip.volume = 1
     random()
 }
-
-const clip = document.getElementById('clip');
-const by = document.getElementById('by');
-
-clip.addEventListener('ended', random, false);
 
 function error(text) {
     const error = document.getElementById("error")
@@ -30,7 +32,6 @@ function error(text) {
 
 function play(source) {
     clip.setAttribute('src', source);
-    clip.volume = 1
 }
 
 function random() {
