@@ -27,7 +27,7 @@ async function getClips() {
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: [params.get('control')?.toLowerCase() || channel]
+    channels: [params.get('control') || channel]
 });
 client.connect().catch(console.error);
 client.on('message', (channel, tags, message) => {
