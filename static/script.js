@@ -1,6 +1,6 @@
 const loading = document.getElementById("loading")
 const params = new URLSearchParams(window.location.search);
-const channel = params.get('channel')
+const channel = params.get('channel').toLowerCase()
 
 if (params.get('details') === '1') document.getElementById("details").style.display = "block";
 
@@ -24,6 +24,18 @@ async function getClips() {
     clip.volume = 1
     random()
 }
+
+const client = new tmi.Client({
+    connection: { reconnect: true },
+    channels: [params.get('control')?.toLowerCase() || channel]
+});
+client.connect().catch(console.error);
+client.on('message', (channel, tags, message) => {
+    const badges = Object.keys(tags.badges)
+    if ((badges.includes('moderator') || badges.includes('broadcaster')) && message.split(' ')[0].toLowerCase() === '-skip') {
+        random()
+    }
+});
 
 function error(text) {
     const error = document.getElementById("error")
