@@ -10,8 +10,8 @@ module.exports = {
         throwHttpErrors: false,
         responseType: 'json',
         headers: {
-            'Client-ID': config.clientid,
-            'Authorization': `Bearer ${config.authorization}`,
+            'Client-ID': config.clientId,
+            'Authorization': `Bearer ${config.token}`,
             'Content-Type': 'application/json'
         }
     }),
